@@ -6,16 +6,19 @@ class LZrender extends L.Layer {
       super(options);
 
       this.map = null;
-      this.zr = null;
+      this.draw = options.draw || (() => { });
    }
 
    onAdd(map) {
       console.log(map);
+      this.map = map;
 
-      this.zr = zrender.init(map._panes.overlayPane, {
+      let zr = zrender.init(map._panes.overlayPane, {
          width: getComputedStyle(map._container).width,
          height: getComputedStyle(map._container).height
       });
+
+      this.draw(zr, projection);
    }
 
    onRemove(map) {
@@ -24,9 +27,9 @@ class LZrender extends L.Layer {
       }
    }
 
-   // getEvents() {
-   //    return "";
-   // }
+   getEvents() {
+      return { zoomend: this._zoomUpdate };
+   }
 
    getAttribution() {
 
@@ -41,8 +44,9 @@ class LZrender extends L.Layer {
       return this;
    }
 
-   getZR() {
-      return this.zr;
+   _zoomUpdate(event) {
+      console.log(this.map.getZoom());
+      console.log(event);
    }
 }
 
