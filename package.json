@@ -1,0 +1,25 @@
+{
+  "name": "leaflet-zrender",
+  "version": "1.0.0",
+  "description": "A leaflet plug using zrender. You can draw what you want to show using zrender.",
+  "main": "./src/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack-dev-server --progress --colors --watch --port 8000",
+    "build": "webpack"
+  },
+  "devDependencies": {
+    "babel-core": "^6.23.1",
+    "babel-loader": "^6.4.0",
+    "babel-plugin-transform-class-properties": "^6.23.0",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-stage-0": "^6.24.1",
+    "css-loader": "^0.28.0",
+    "file-loader": "^0.11.2",
+    "leaflet": "^1.0.3",
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.4.1",
+    "zrender": "^3.5.2"
+  }
+}
