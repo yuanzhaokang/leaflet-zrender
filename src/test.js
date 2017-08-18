@@ -11,15 +11,15 @@ Esri_WorldTopoMap.addTo(map);
 let lz = new LZrender({
    draw: draw
 });
-// lz.addTo(map);
+
 lz.addTo(map);
 
-function draw(zr, projection) {
+function draw(zr) {
    let c = new Circle({
       shape: {
          cx: 100,
          cy: 100,
-         r: 30
+         r: 0
       },
       style: {
          fill: 'blue'
@@ -27,7 +27,7 @@ function draw(zr, projection) {
    });
 
    c.animateShape(true)
-      .when(1000, {
+      .when(2000, {
          r: 50
       })
       .start();

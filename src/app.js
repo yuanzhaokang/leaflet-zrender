@@ -18,7 +18,8 @@ class LZrender extends L.Layer {
          height: getComputedStyle(map._container).height
       });
 
-      this.draw(zr, projection);
+      // let projection = [];
+      this.draw(zr);
    }
 
    onRemove(map) {
@@ -28,7 +29,10 @@ class LZrender extends L.Layer {
    }
 
    getEvents() {
-      return { zoomend: this._zoomUpdate };
+      return {
+         zoomend: this._zoomUpdate,
+         moveend: this._moveUpdate
+      };
    }
 
    getAttribution() {
@@ -47,6 +51,16 @@ class LZrender extends L.Layer {
    _zoomUpdate(event) {
       console.log(this.map.getZoom());
       console.log(event);
+   }
+
+   _moveUpdate(event) {
+      console.log(this.map);
+      let translate = getComputedStyle(this.map._mapPane).transform.replace('matrix', '').replace('(', '').replace(')', '').split(',');
+      let translateX = translate[4];
+      let translateY = translate[5];
+
+      this.map._panes.overlayPane.style.transform = `translate(${-translateX}px, ${-translateY}px)`
+      console.log(translateX, translateY);
    }
 }
 
