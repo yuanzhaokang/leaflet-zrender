@@ -69,8 +69,4 @@ class LZrender extends L.Layer {
     }
 }
 
-// L.Zrender = function (callback, options) {
-//    return new LZrender(callback, options);
-// }
-
 export default LZrender;
