@@ -26,7 +26,7 @@ function draw(root) {
         shape: {
             cx: pixel.x,
             cy: pixel.y,
-            r: 0
+            r: 20
         },
         style: {
             fill: 'blue'
