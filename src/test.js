@@ -1,7 +1,7 @@
 import * as L from 'leaflet';
 import LZrender from './app';
 import Circle from 'zrender/src/graphic/shape/Circle';
-import 'leaflet/dist/leaflet.css';
+// import 'leaflet/dist/leaflet.css';
 
 var map = L.map("canvas", { center: [39.89, 116.38], zoom: 8 });
 var Esri_WorldTopoMap = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
