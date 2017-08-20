@@ -10,6 +10,11 @@ class LZrender extends L.Layer {
         this.map = null;
         this.draw = options.draw || (() => { });
         this.rootGroup = new Group();
+
+        this.initLngLat = L.latLng([0, 0]);
+        this.initPos = [0, 0];
+
+        this.lastZoom = 0;
     }
 
     onAdd(map) {
@@ -22,6 +27,9 @@ class LZrender extends L.Layer {
 
         this.zr.add(this.rootGroup);
         this.draw(this.rootGroup);
+
+        this.initPos = this.map.latLngToContainerPoint(this.initLngLat);
+        this.lastZoom = this.map.getZoom();
     }
 
     onRemove(map) {
@@ -50,8 +58,17 @@ class LZrender extends L.Layer {
     }
 
     _zoomUpdate(event) {
-        console.log(this.map.getZoom());
-        console.log(event);
+        let initZoom = event.target.options.zoom;
+        let nowZoom = this.map.getZoom();
+
+        let offsetZoom = (1 / (nowZoom - this.lastZoom) * Math.abs((nowZoom - this.lastZoom))) * (nowZoom - initZoom);
+        let { position } = this.rootGroup;
+        let nowPos = this.map.latLngToContainerPoint(this.initLngLat);
+
+        this.rootGroup.position = [];
+
+        console.log(offsetZoom);
+        this.lastZoom = this.map.getZoom();        
     }
 
     _moveUpdate(event) {
