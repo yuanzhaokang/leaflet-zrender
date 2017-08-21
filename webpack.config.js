@@ -4,7 +4,7 @@ var webpack = require('webpack');
 module.exports = {
     //devtool:'inline-source-map',
     entry: {
-        bundle: './src/test.js',
+        bundle: './examples/fly.js',
         vendor: ['leaflet', 'zrender']
     },
     output: {

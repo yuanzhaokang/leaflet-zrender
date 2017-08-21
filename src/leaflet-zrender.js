@@ -3,7 +3,7 @@ import zrender from 'zrender/src/zrender';
 import Group from 'zrender/src/container/Group';
 import Circle from 'zrender/src/graphic/shape/Circle';
 
-class LZrender extends L.Layer {
+class Leaflet_zrender extends L.Layer {
     constructor(options) {
         super(options);
 
@@ -27,11 +27,15 @@ class LZrender extends L.Layer {
         this.draw(this.rootGroup);
 
         this.initPos = this.map.latLngToLayerPoint(this.initLngLat);
+
+        // let canvas = L.canvas();
+        // console.log(canvas);
+        // canvas.addTo(this.map);
     }
 
     onRemove(map) {
-        if (this.zr) {
-            zr.dispose();
+        if(this.zr) {
+            this.zr.dispose();
         }
     }
 
@@ -59,14 +63,12 @@ class LZrender extends L.Layer {
 
         let offsetZoom = nowZoom - initZoom;
         let scale = Math.pow(2, offsetZoom);
-
         let shift = this.map.latLngToLayerPoint(this.initLngLat)._subtract(this.initPos.multiplyBy(scale));
 
         this.rootGroup.position = [shift.x, shift.y];
         this.rootGroup.scale = [scale, scale];
-
         this.rootGroup.dirty();
     }
 }
 
-export default LZrender;
+export default Leaflet_zrender;

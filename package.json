@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack-dev-server --progress --colors --watch --port 8000",
-    "build": "webpack"
+    "build": "webpack",
+    "build-dev": "webpack --watch"
   },
   "devDependencies": {
     "babel-core": "^6.23.1",
