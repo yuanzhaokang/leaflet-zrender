@@ -13,6 +13,7 @@ class Leaflet_zrender extends L.Layer {
 
         this.initLngLat = L.latLng([0, 0]);
         this.initPos = [0, 0];
+        this.scale = 1;
     }
 
     onAdd(map) {
@@ -41,7 +42,8 @@ class Leaflet_zrender extends L.Layer {
 
     getEvents() {
         return {
-            zoomend: this._zoomUpdate
+            zoomend: this._zoomUpdate,
+            moveend: this._moveUpdate
         };
     }
 
@@ -63,10 +65,22 @@ class Leaflet_zrender extends L.Layer {
 
         let offsetZoom = nowZoom - initZoom;
         let scale = Math.pow(2, offsetZoom);
+        this.scale = scale;
         let shift = this.map.latLngToLayerPoint(this.initLngLat)._subtract(this.initPos.multiplyBy(scale));
 
         this.rootGroup.position = [shift.x, shift.y];
         this.rootGroup.scale = [scale, scale];
+        this.rootGroup.dirty();
+    }
+
+    _moveUpdate(event) {
+        let translate = getComputedStyle(this.map._mapPane).transform.replace('matrix', '').replace('(', '').replace(')', '').split(',');
+        let translateX = parseFloat(translate[4].trim());
+        let translateY = parseFloat(translate[5].trim());
+
+        this.rootGroup.position = [translateX * this.scale, translateY * this.scale];
+        this.map._panes.overlayPane.style.transform = `translate(${-translateX}px, ${-translateY}px)`
+        // Use dirty function and zrender will repaint.
         this.rootGroup.dirty();
     }
 }

@@ -58,8 +58,7 @@ export default class AnimatePoint {
 
             circleShape.animateStyle(this.loop)
                 .when(this.during, {
-                    opacity: 0,
-                    lineWidth: 3
+                    opacity: 0
                 })
                 .delay(this.during / (outterCircleNum) * index)
                 .start(Config.animationEasing)
